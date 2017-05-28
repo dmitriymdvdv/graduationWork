@@ -7,10 +7,10 @@ public class AiTank : MonoBehaviour {
 	[HideInInspector]
 	public TankController controller;
 	
-	public float directionSwitcherTime = 3;
+	public float directionSwitcherTime = 2;
 	public float shootingTime = 1;
 	
-	public float _directionSwitcherTimer = 3;
+	public float _directionSwitcherTimer = 2;
 	public float _shootingTimer = 1;
 	private Array values;
 	private System.Random r;
@@ -30,9 +30,6 @@ public class AiTank : MonoBehaviour {
 		if (_directionSwitcherTimer <= 0)
 		{
 			var direction = (TankController.goDirection) values.GetValue (r.Next (0, 4));
-			while (direction == TankController.goDirection.stay || direction == TankController.goDirection.up) {
-				direction = (TankController.goDirection) values.GetValue (r.Next (0, 4));
-			}
 			_directionSwitcherTimer = directionSwitcherTime;
 			controller.direction = direction;
 			Debug.Log (controller.direction);

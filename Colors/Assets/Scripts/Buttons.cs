@@ -26,7 +26,6 @@ public class Buttons : MonoBehaviour {
 		case "Replay":
 			Application.LoadLevel ("play");
 			break;
-
 		case "Home":
 			Application.LoadLevel ("main");
 			break;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class AiTank : MonoBehaviour {
 	
@@ -11,21 +12,30 @@ public class AiTank : MonoBehaviour {
 	
 	public float _directionSwitcherTimer = 3;
 	public float _shootingTimer = 1;
+	private Array values;
+	private System.Random r;
 
 	void Start () 
 	{
 		controller = GetComponent<TankController>();
+		r = new System.Random ();
+		values = Enum.GetValues (typeof(TankController.goDirection));
 	}
 
-	void Update () 
+	void FixedUpdate () 
 	{
 		_directionSwitcherTimer -= Time.deltaTime;
 		_shootingTimer -= Time.deltaTime;
 		
 		if (_directionSwitcherTimer <= 0)
 		{
+			var direction = (TankController.goDirection) values.GetValue (r.Next (0, 4));
+			while (direction == TankController.goDirection.stay || direction == TankController.goDirection.up) {
+				direction = (TankController.goDirection) values.GetValue (r.Next (0, 4));
+			}
 			_directionSwitcherTimer = directionSwitcherTime;
-			controller.direction = (TankController.goDirection) Random.Range(0, 4);
+			controller.direction = direction;
+			Debug.Log (controller.direction);
 		}
 		
 		if (_shootingTimer <= 0)

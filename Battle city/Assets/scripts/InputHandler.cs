@@ -1,4 +1,5 @@
 using UnityEngine;
+using CnControls;
 using System.Collections;
 
 public class InputHandler : MonoBehaviour {
@@ -10,7 +11,7 @@ public class InputHandler : MonoBehaviour {
 		controller = GetComponent<TankController>();
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			direction = TankController.goDirection.right;
@@ -24,7 +25,7 @@ public class InputHandler : MonoBehaviour {
 			direction = TankController.goDirection.stay;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) || CnInputManager.GetButtonDown("Jump")) {
 			controller.Shoot();
 		}
 
